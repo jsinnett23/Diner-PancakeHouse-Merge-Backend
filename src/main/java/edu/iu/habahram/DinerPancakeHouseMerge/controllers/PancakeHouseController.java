@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -21,7 +23,9 @@ public class PancakeHouseController {
 
     @GetMapping
     public List<MenuItem> get() {
-        // Retrieve the list of menu items directly from the PancakeHouseMenu object
-        return repository.getPancakeHouseMenu().getMenuItems();
+        List<MenuItem> items = new ArrayList<>();
+        Iterator<MenuItem> iterator = repository.getPancakeHouseMenu().createIterator();
+        iterator.forEachRemaining(items::add);
+        return items;
     }
 }

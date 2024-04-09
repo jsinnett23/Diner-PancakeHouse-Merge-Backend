@@ -7,19 +7,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/diner")
 public class DinerController {
 
-    DinerRepository repository;
+    private final DinerRepository repository;
 
     public DinerController(DinerRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping
-    public MenuItem[] get() {
-        return repository.getTheMenu();
+    public List<MenuItem> get() {
+        List<MenuItem> items = new ArrayList<>();
+        // Since getTheMenu returns Menu, we get the iterator from the Menu
+        Iterator<MenuItem> iterator = repository.getTheMenu().createIterator();
+        iterator.forEachRemaining(items::add); // Add each item from the iterator to the list
+        return items;
     }
 }

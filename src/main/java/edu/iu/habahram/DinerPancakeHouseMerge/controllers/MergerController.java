@@ -29,11 +29,14 @@ public class MergerController {
     @GetMapping
     public List<MenuItem> get() {
         List<MenuItem> mergedMenu = new ArrayList<>();
-        Iterator pancakeIterator = pancakeHouseRepository.getIterator();
+        java.util.Iterator<MenuItem> pancakeIterator = pancakeHouseRepository.getPancakeHouseMenu().createIterator();
         while (pancakeIterator.hasNext()) {
             mergedMenu.add(pancakeIterator.next());
         }
-        mergedMenu.addAll(Arrays.asList(dinerRepository.getTheMenu()));
+        java.util.Iterator<MenuItem> dinerIterator = dinerRepository.getTheMenu().createIterator();
+        while (dinerIterator.hasNext()) {
+            mergedMenu.add(dinerIterator.next());
+        }
         mergedMenu.sort(Comparator.comparing(MenuItem::getName));
         return mergedMenu;
     }
