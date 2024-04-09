@@ -26,7 +26,7 @@ public class DinerController {
     public List<MenuItem> get() {
         List<MenuItem> items = new ArrayList<>();
         // Since getTheMenu returns Menu, we get the iterator from the Menu
-        Iterator<MenuItem> iterator = repository.getTheMenu().createIterator();
+        Iterator<MenuItem> iterator = repository.getTheMenuIterator();
         iterator.forEachRemaining(items::add); // Add each item from the iterator to the list
         return items;
     }
