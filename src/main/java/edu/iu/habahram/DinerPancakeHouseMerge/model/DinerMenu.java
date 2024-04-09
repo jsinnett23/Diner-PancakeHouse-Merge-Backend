@@ -49,9 +49,10 @@ public class DinerMenu implements Menu{
         }
         return  stringBuilder.toString();
     }
-
+    @Override
     public Iterator<MenuItem> createIterator() {
-        return new DinerMenuIterator(getMenuItems());
+        // Always return the AlternatingDinerMenuIterator
+        return new AlternatingDinerMenuIterator(menuItems);
     }
 
     // other menu methods here
