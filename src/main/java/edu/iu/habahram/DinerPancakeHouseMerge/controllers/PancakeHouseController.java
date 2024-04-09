@@ -1,7 +1,6 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
-import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/pancakehouse")
 public class PancakeHouseController {
-    PancakeHouseRepository repository;
+    private final PancakeHouseRepository repository;
 
     public PancakeHouseController(PancakeHouseRepository repository) {
         this.repository = repository;
@@ -22,6 +21,7 @@ public class PancakeHouseController {
 
     @GetMapping
     public List<MenuItem> get() {
-        return repository.getTheMenu();
+        // Retrieve the list of menu items directly from the PancakeHouseMenu object
+        return repository.getPancakeHouseMenu().getMenuItems();
     }
 }

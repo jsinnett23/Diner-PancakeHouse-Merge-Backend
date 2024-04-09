@@ -1,5 +1,6 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
+import edu.iu.habahram.DinerPancakeHouseMerge.model.Iterator;
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.DinerRepository;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.PancakeHouseRepository;
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
 @RestController
 @CrossOrigin
 @RequestMapping("/merger")
@@ -29,7 +29,10 @@ public class MergerController {
     @GetMapping
     public List<MenuItem> get() {
         List<MenuItem> mergedMenu = new ArrayList<>();
-        mergedMenu.addAll(pancakeHouseRepository.getTheMenu());
+        Iterator pancakeIterator = pancakeHouseRepository.getIterator();
+        while (pancakeIterator.hasNext()) {
+            mergedMenu.add(pancakeIterator.next());
+        }
         mergedMenu.addAll(Arrays.asList(dinerRepository.getTheMenu()));
         mergedMenu.sort(Comparator.comparing(MenuItem::getName));
         return mergedMenu;
