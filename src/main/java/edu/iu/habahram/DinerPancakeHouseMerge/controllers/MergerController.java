@@ -2,6 +2,7 @@ package edu.iu.habahram.DinerPancakeHouseMerge.controllers;
 
 import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItem;
 import edu.iu.habahram.DinerPancakeHouseMerge.model.Menu;
+import edu.iu.habahram.DinerPancakeHouseMerge.model.MenuItemRecord;
 import edu.iu.habahram.DinerPancakeHouseMerge.repository.MergerRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,22 +18,15 @@ import java.util.List;
 @RequestMapping("/merger")
 public class MergerController {
 
-    private final MergerRepository repository;
+    MergerRepository mergerRepository;
 
-    public MergerController(MergerRepository repository) {
-        this.repository = repository;
+    public MergerController(MergerRepository mergerRepository) {
+        this.mergerRepository = mergerRepository;
     }
 
     @GetMapping
-    public List<MenuItem> get() {
-        List<MenuItem> menuItems = new ArrayList<>();
-        ArrayList<Menu> menus = repository.getTheMenus();
-        for (Menu menu : menus) {
-            Iterator<MenuItem> iterator = menu.createIterator();
-            while (iterator.hasNext()) {
-                menuItems.add(iterator.next());
-            }
-        }
-        return menuItems;
+    public List<MenuItemRecord> get() {
+        List<MenuItemRecord> items = mergerRepository.getTheMenuItems();
+        return items;
     }
 }
