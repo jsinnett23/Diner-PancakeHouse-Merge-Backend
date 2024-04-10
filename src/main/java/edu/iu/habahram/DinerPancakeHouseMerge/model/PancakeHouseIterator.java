@@ -1,5 +1,6 @@
 package edu.iu.habahram.DinerPancakeHouseMerge.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class PancakeHouseIterator implements Iterator {
